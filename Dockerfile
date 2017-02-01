@@ -1,13 +1,20 @@
-# shadowsocks
+# shadowsocks-libev
 #
-# VERSION 0.0.3
+# VERSION 0.0.1
 
-FROM ubuntu:16.04
-MAINTAINER Dariel Dato-on <oddrationale@gmail.com>
+FROM base/archlinux
+MAINTAINER Sherlock Holo <sherlockya@gmail.com>
 
-RUN apt-get update && \
-    apt-get install -y python-pip libsodium18
-RUN pip install shadowsocks==2.8.2
+RUN pacman -S --no-confirm gettext gcc autoconf libtool automake make mbedtls asciidoc xmlto udns libev git
+
+RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git
+
+RUN cd shadowsocks-libev
+
+RUN ./autogen.sh
+RUN ./configure
+RUN make
+RUN make install
 
 # Configure container to run as an executable
-ENTRYPOINT ["/usr/local/bin/ssserver"]
+ENTRYPOINT ["/usr/local/bin/ss-server"]
