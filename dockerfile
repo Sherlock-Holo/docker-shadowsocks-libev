@@ -5,7 +5,7 @@
 FROM base/archlinux
 MAINTAINER Sherlock Holo <sherlockya@gmail.com>
 
-RUN pacman -S --noconfirm archlinux-keyring
+RUN pacman -Sy --noconfirm archlinux-keyring
 
 RUN pacman -Syu --noconfirm
 
