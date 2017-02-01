@@ -9,6 +9,8 @@ RUN pacman -Sy --noconfirm archlinux-keyring
 
 RUN pacman -Syu --noconfirm
 
+RUN pacman-db-upgrade
+
 RUN pacman -Sy --noconfirm gettext gcc autoconf libtool automake make mbedtls asciidoc xmlto udns libev git
 
 RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git
