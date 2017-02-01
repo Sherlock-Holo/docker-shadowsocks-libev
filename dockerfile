@@ -5,6 +5,8 @@
 FROM base/archlinux
 MAINTAINER Sherlock Holo <sherlockya@gmail.com>
 
+RUN pacman -Syu --noconfirm
+
 RUN pacman -Syu --noconfirm gettext gcc autoconf libtool automake make mbedtls asciidoc xmlto udns libev git
 
 RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git
