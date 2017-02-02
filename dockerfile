@@ -9,8 +9,8 @@ RUN pacman -Syu --noconfirm gettext gcc autoconf libtool automake make mbedtls a
 && rm -rf /var/cache/pacman/pkg/*
 
 RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git \
-&& git submodule update --init --recursive \
-&& cd shadowsocks-libev && ./autogen.sh &&./configure &&make &&make install && cd .. && rm -rf shadowsocks-libev
+&& cd shadowsocks-libev && git submodule update --init --recursive \
+&& ./autogen.sh &&./configure &&make &&make install && cd .. && rm -rf shadowsocks-libev
 
 # Configure container to run as an executable
 ENTRYPOINT ["/usr/local/bin/ss-server"]
