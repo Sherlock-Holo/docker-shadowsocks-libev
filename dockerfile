@@ -1,26 +1,15 @@
-# shadowsocks-libev
+# docker-shadowsocks-libev
 #
 # VERSION 0.0.1
 
-FROM base/archlinux
+FROM pritunl/archlinux
 MAINTAINER Sherlock Holo <sherlockya@gmail.com>
 
-RUN pacman -Sy --noconfirm archlinux-keyring
+RUN pacman -Syu --noconfirm gettext gcc autoconf libtool automake make mbedtls asciidoc xmlto udns libev git \
+&& rm -rf /var/cache/pacman/pkg/*
 
-RUN pacman -Syu --noconfirm
-
-RUN pacman-db-upgrade
-
-RUN pacman -Sy --noconfirm gettext gcc autoconf libtool automake make mbedtls asciidoc xmlto udns libev git
-
-RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git
-
-RUN cd shadowsocks-libev
-
-RUN ./autogen.sh
-RUN ./configure
-RUN make
-RUN make install
+RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git \
+&& cd shadowsocks-libev && ./autogen.sh &&./configure &&make &&make install && cd .. && rm -rf shadowsocks-libev
 
 # Configure container to run as an executable
 ENTRYPOINT ["/usr/local/bin/ss-server"]
